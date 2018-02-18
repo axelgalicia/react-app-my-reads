@@ -17,7 +17,7 @@ To get started and use the application just follow the below steps:
 ## How to use
 
  - After staring the application, you will be redirected to the main page containing all your default books for your bookshelf.
- - While in the main page, you can click on each book's menu to choose between shelfs and move your books around.
+ - While in the main page, you can click on each book's menu to choose between shelves and move your books around.
  - In the right button corner you will find a ( + ) button which will redirect to the /search page. Here you can start typing and search for new books.
  - Note that while searching for new books and seeing results, if one of the books are already in your booksheld it will indicate in which shelf belongs currently.
 

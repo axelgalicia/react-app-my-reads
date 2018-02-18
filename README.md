@@ -23,7 +23,11 @@ To get started and use the application just follow the below steps:
 
 ## Screenshots
 
+### Main page
+![Main page](https://github.com/axelgalicia/react-app-my-reads/blob/master/images/main_page.jpg)
 
+### Search Page
+![Search Page](https://github.com/axelgalicia/react-app-my-reads/blob/master/images/search_page.jpg)
 
 **Author**: Axel Galicia, axelgalicia@gmail.com
 Last Version: 1.0.0

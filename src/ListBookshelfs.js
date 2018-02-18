@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import Bookshelf from './Bookshelf'
 import PropTypes from 'prop-types'
 
+/**
+ * Represents a List of Bookshelfs components
+ *
+ * @version 1.0.0
+ * @author [Axel Galicia](https://github.com/axelgalicia)
+ */
 class ListBookshelfs extends Component {
 
     render() {

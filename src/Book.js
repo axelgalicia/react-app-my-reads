@@ -1,8 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+
+/**
+ * Represents a Book containing title, authors and a shelf menu
+ *
+ * @version 1.0.0
+ * @author [Axel Galicia](https://github.com/axelgalicia)
+ */
 class Book extends Component {
 
+    static propTypes = {
+        backgroundImageURL: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        authors: PropTypes.array.isRequired
+    }
 
     render() {
 
@@ -30,12 +42,6 @@ class Book extends Component {
         )
     }
 
-}
-
-Book.propTypes = {
-    backgroundImageURL: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    authors: PropTypes.array.isRequired
 }
 
 export default Book

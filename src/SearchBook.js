@@ -5,7 +5,12 @@ import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
 
-
+/**
+ * Represents a Search Books component feature
+ *
+ * @version 1.0.0
+ * @author [Axel Galicia](https://github.com/axelgalicia)
+ */
 class SearchBook extends Component {
 
     static propTypes = {
@@ -13,13 +18,20 @@ class SearchBook extends Component {
     }
 
     state = {
+        /**The query entered by the user to search for a book */
         query: '',
+        /**The list of books which are currently stored in the shelfs*/
         myCurrentBooks: [],
+        /**The list of books returned after searching using query value*/
         searchBooks: []
     }
 
+    /**
+     * Updates the state variables after updating query state
+     * @param {string} query the query entered by the user
+     * @public
+     */
     updateQuery = (query) => {
-
         if (query) {
             this.setState({ query: query })
             this.searchBooks(query);
@@ -33,18 +45,31 @@ class SearchBook extends Component {
         }
     }
 
+    /**
+     * Retrieves all the books currently stored in the user´s shelf
+     * @public
+     */
     getAllMyBooks = () => {
         BooksAPI.getAll().then((myBooks) => {
             this.setState({ myCurrentBooks: myBooks })
         })
     }
-
+    /**
+     * Retrieves all the books matching the query
+     * @param {string} query
+     * @public
+     */
     searchBooks = (query) => {
         BooksAPI.search(query).then((myBooks) => {
             this.setState({ searchBooks: myBooks.error ? [] : myBooks })
         })
     }
-
+    /**
+    * Updates the shelf of the book passed
+    * @param {string} id the book id
+    * @param {string} shelf the shelf name ["currently reading”, “want to read”, “read”, "none"]
+    * @public
+    */
     updateBook = (id, shelf) => {
         BooksAPI.update({ id: id }, shelf).then((myBooks) => {
             this.getAllMyBooks()
@@ -61,11 +86,9 @@ class SearchBook extends Component {
         if (!query) {
             showingBooks = []
         } else {
-            showingBooks.map((book, index) => {
+            showingBooks.map((book, index) => { //Finding the current state of the books found
                 const myBook = myCurrentBooks.find((myCurrentBook) => myCurrentBook.id === book.id)
-                if (myBook) {
-                    showingBooks[index].shelf = myBook.shelf
-                }
+                showingBooks[index].shelf = myBook ? myBook.shelf : 'none'
                 return myBook
             })
 

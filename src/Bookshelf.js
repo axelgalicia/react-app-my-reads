@@ -2,7 +2,19 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Book from './Book'
 
+/**
+ * Represents a Booksheld containing one or more Book Components
+ *
+ * @version 1.0.0
+ * @author [Axel Galicia](https://github.com/axelgalicia)
+ */
 class Bookshelf extends Component {
+
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    currentBooks: PropTypes.array.isRequired
+  }
 
   state = {
   }
@@ -35,12 +47,6 @@ class Bookshelf extends Component {
       </div>
     )
   }
-}
-
-Bookshelf.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  currentBooks: PropTypes.array.isRequired
 }
 
 export default Bookshelf

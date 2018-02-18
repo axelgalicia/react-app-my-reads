@@ -5,6 +5,12 @@ import SearchBook from './SearchBook'
 import ListBookshelfs from './ListBookshelfs'
 import './App.css'
 
+/**
+ * The main component to display all shelfs of MyReads App
+ *
+ * @version 1.0.0
+ * @author [Axel Galicia](https://github.com/axelgalicia)
+ */
 class BooksApp extends React.Component {
   state = {
     books: []
@@ -14,12 +20,22 @@ class BooksApp extends React.Component {
     this.getAllMyBooks()
   }
 
+  /**
+   * Retrieves all the books already stored
+   * @public
+   */
   getAllMyBooks = () => {
     BooksAPI.getAll().then((myBooks) => {
       this.setState({ books: myBooks })
     })
   }
 
+  /**
+   * Updates the shelf of the book passed
+   * @param {string} id the book id
+   * @param {string} shelf the shelf name ["currently reading”, “want to read”, “read”, "none"]
+   * @public
+   */
   moveBook = (id, shelf) => {
     BooksAPI.update({ id: id }, shelf).then((myBooks) => {
       this.getAllMyBooks()
@@ -46,7 +62,9 @@ class BooksApp extends React.Component {
   }
 }
 
-
+/**
+ * The title of the page
+ */
 function Title() {
   return (
     <div className="list-books-title">
@@ -55,6 +73,9 @@ function Title() {
   )
 }
 
+/**
+ * A Button which redirects to /search
+ */
 function SearchButton() {
   return (
     <div className="open-search">

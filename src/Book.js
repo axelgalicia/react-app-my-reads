@@ -5,7 +5,6 @@ class Book extends Component {
 
 
     render() {
-        console.log('RENDER Book')
 
         const { id, backgroundImageURL, title, authors, shelf, onBookMove } = this.props
 

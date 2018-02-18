@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Book from './Book'
-import Bookshelf from './Bookshelf'
 import * as BooksAPI from './BooksAPI'
 
 
@@ -10,23 +9,34 @@ import * as BooksAPI from './BooksAPI'
 class SearchBook extends Component {
 
     static propTypes = {
-        currentBooks: PropTypes.array.isRequired
+        onFinishSearch: PropTypes.func.isRequired
     }
 
     state = {
         query: '',
+        myCurrentBooks: [],
         searchBooks: []
     }
 
     updateQuery = (query) => {
 
-        this.setState({ query: query })
         if (query) {
+            this.setState({ query: query })
             this.searchBooks(query);
+            this.getAllMyBooks()
         } else {
-            this.setState({ searchBooks: [] })
+            this.setState({
+                query: query,
+                searchBooks: [],
+                myCurrentBooks: []
+            })
         }
+    }
 
+    getAllMyBooks = () => {
+        BooksAPI.getAll().then((myBooks) => {
+            this.setState({ myCurrentBooks: myBooks })
+        })
     }
 
     searchBooks = (query) => {
@@ -37,29 +47,28 @@ class SearchBook extends Component {
 
     updateBook = (id, shelf) => {
         BooksAPI.update({ id: id }, shelf).then((myBooks) => {
-            this.setState()
+            this.getAllMyBooks()
         })
     }
 
-    componentDidMount() {
-        console.log('DID MOUNT')
-        this.setState()
-    }
-
-
     render() {
 
-        console.log('Render SearchBook')
-
-        const { currentBooks, onFinishSearch } = this.props
-        const { query, searchBooks } = this.state
+        const { onFinishSearch } = this.props
+        const { query, searchBooks, myCurrentBooks } = this.state
 
         let showingBooks = searchBooks
-        console.log(searchBooks.length)
 
-        if (!query || !showingBooks || showingBooks.length < 1) {
+        if (!query) {
             showingBooks = []
-            console.log('^^^^^^^^^^^^^^^^^^^^^^^^ NO QUERY ^^^^^^^^^^^^^^^^^^^^^^^^^')
+        } else {
+            showingBooks.map((book, index) => {
+                const myBook = myCurrentBooks.find((myCurrentBook) => myCurrentBook.id === book.id)
+                if (myBook) {
+                    showingBooks[index].shelf = myBook.shelf
+                }
+                return myBook
+            })
+
         }
 
         return (
@@ -78,7 +87,7 @@ class SearchBook extends Component {
                                     id={book.id}
                                     backgroundImageURL={(book.imageLinks && book.imageLinks.smallThumbnail) ? (book.imageLinks.smallThumbnail) : ''}
                                     title={book.title}
-                                    shelf={book.shelf ? book.shelf : Bookshelf.shelfNames.none }
+                                    shelf={book.shelf ? book.shelf : 'none'}
                                     authors={book.authors ? book.authors : ['[No Author]']} onBookMove={this.updateBook} />
                             </li>
                         ))}
@@ -89,7 +98,6 @@ class SearchBook extends Component {
         )
 
     }
-
 
 }
 

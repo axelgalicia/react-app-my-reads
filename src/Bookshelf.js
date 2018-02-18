@@ -7,18 +7,7 @@ class Bookshelf extends Component {
   state = {
   }
 
-  static shelfNames = {
-    none: 'none',
-    currentlyReading: 'currentlyReading',
-    wantToRead: 'wantToRead',
-    read: 'read'
-
-  }
-
   render() {
-
-    console.log('RENDER Bookshelf')
-
     const { id, name, currentBooks, onBookMove } = this.props
 
     //Filtering only which belong to this shelf

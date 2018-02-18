@@ -21,6 +21,9 @@ To get started and use the application just follow the below steps:
  - In the right button corner you will find a ( + ) button which will redirect to the /search page. Here you can start typing and search for new books.
  - Note that while searching for new books and seeing results, if one of the books are already in your booksheld it will indicate in which shelf belongs currently.
 
+## Screenshots
+
+
 
 **Author**: Axel Galicia, axelgalicia@gmail.com
 Last Version: 1.0.0

@@ -25,7 +25,7 @@ class Book extends Component {
                 </div>
                 <div className="book-title">{title}</div>
                 <div className="book-authors">{
-                    authors.toString()
+                    authors && authors.length ? authors.toString() : ''
                 }</div>
             </div>
         )

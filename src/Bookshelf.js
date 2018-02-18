@@ -7,6 +7,14 @@ class Bookshelf extends Component {
   state = {
   }
 
+  static shelfNames = {
+    none: 'none',
+    currentlyReading: 'currentlyReading',
+    wantToRead: 'wantToRead',
+    read: 'read'
+
+  }
+
   render() {
 
     console.log('RENDER Bookshelf')
@@ -15,8 +23,6 @@ class Bookshelf extends Component {
 
     //Filtering only which belong to this shelf
     let showingBooks = currentBooks.filter((book) => book.shelf === id)
-
-    console.log(showingBooks)
 
     return (
       <div className="bookshelf">
@@ -27,10 +33,10 @@ class Bookshelf extends Component {
               <li key={book.id}>
                 <Book
                   id={book.id}
-                  backgroundImageURL={book.imageLinks.smallThumbnail}
+                  backgroundImageURL={(book.imageLinks && book.imageLinks.smallThumbnail) ? (book.imageLinks.smallThumbnail) : ''}
                   title={book.title}
                   shelf={book.shelf}
-                  authors={book.authors} onBookMove={(id, shelf) => onBookMove(id, shelf)} />
+                  authors={book.authors ? book.authors : ['[No Author]']} onBookMove={onBookMove} />
               </li>
             ))}
 

@@ -3,92 +3,54 @@ import { Route, Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import SearchBook from './SearchBook'
 import ListBookshelfs from './ListBookshelfs'
+import Bookshelf from './Bookshelf'
 import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: [
-      {
-        title: "Keith Richards",
-        subtitle: "The Biography",
-        authors: [
-          "Victor Bockris", "Axel"
-        ],
-        shelf: "currentlyReading",
-        id: "A",
-        imageLinks: {
-          "smallThumbnail": "http://books.google.com/books/content?id=P_lzbHj_jS0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
-        }
-      },
-      {
-        title: "Keith Richards",
-        subtitle: "The Biography",
-        authors: [
-          "Victor Bockris", "Axel"
-        ],
-        shelf: "wantToRead",
-        id: "B",
-        imageLinks: {
-          "smallThumbnail": "http://books.google.com/books/content?id=P_lzbHj_jS0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
-        }
-      },
-      {
-        title: "Keith Richards",
-        subtitle: "The Biography",
-        authors: [
-          "Victor Bockris"
-        ],
-        shelf: "read",
-        id: "C",
-        imageLinks: {
-          "smallThumbnail": "http://books.google.com/books/content?id=P_lzbHj_jS0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
-        }
-      }
-
-    ]
+    books: []
   }
 
+  componentDidMount() {
+    this.getAllMyBooks()
+    console.log('GET ALL')
+  }
 
-
+  getAllMyBooks = () => {
+    console.log('GET ALL BOOKs')
+    BooksAPI.getAll().then((myBooks) => {
+      this.setState({ books: myBooks })
+    })
+  }
 
   moveBook = (id, shelf) => {
-    console.log('Moving ' + id + ' to ' + shelf);
-
-    let bookArray = this.state.books.filter((book) => book.id === id)
-    let bookUpdated
-
-   
-       bookUpdated = bookArray[0]
-       bookUpdated.shelf = shelf
-       this.setState((previousState) => ({
-         books: previousState.books.filter((book)=> book.id != id).concat([bookUpdated])
-       }))    
-
+    let bookUpdated = this.state.books.filter((book) => book.id === id)[0]
+    bookUpdated.shelf = shelf
+    //When none shelf is selected is deleted
+    if (shelf === Bookshelf.shelfNames.none) {
+      this.setState((previousState) => ({
+        books: previousState.books.filter((book) => book.id !== id)
+      }))
+    } else {
+      this.setState((previousState) => ({
+        books: previousState.books.filter((book) => book.id !== id).concat([bookUpdated])
+      }))
+    }
   }
 
-
-
   render() {
-
     console.log('RENDER App')
     return (
       <div className="app">
         <Route exact path="/search" render={() => (
-          <SearchBook currentBooks={this.state.books} />
+          <SearchBook currentBooks={this.state.books} onFinishSearch={this.getAllMyBooks} />
         )} />
 
         <Route exact path="/" render={() => (
-
           <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-
+            <Title />
             <ListBookshelfs currentBooks={this.state.books} onBookMove={this.moveBook} />
-
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
+            <SearchButton />
           </div>
         )} />
 
@@ -96,4 +58,23 @@ class BooksApp extends React.Component {
     )
   }
 }
+
+
+function Title() {
+  return (
+    <div className="list-books-title">
+      <h1>MyReads</h1>
+    </div>
+  )
+}
+
+function SearchButton() {
+  return (
+    <div className="open-search">
+      <Link to="/search">Add a book</Link>
+    </div>
+  )
+}
+
+
 export default BooksApp

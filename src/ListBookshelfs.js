@@ -17,9 +17,9 @@ class ListBookshelfs extends Component {
         return (
             <div className="list-books-content">
 
-                <Bookshelf name="Currently Reading" id="currentlyReading" currentBooks={currentBooks} onBookMove={(id, shelf) => onBookMove(id, shelf)} />
-                <Bookshelf name="Want to Read" id="wantToRead" currentBooks={currentBooks} onBookMove={(id, shelf) => onBookMove(id, shelf)} />
-                <Bookshelf name="Read" id="read" currentBooks={currentBooks} onBookMove={(id, shelf) => onBookMove(id, shelf)} />
+                <Bookshelf name="Currently Reading" id="currentlyReading" currentBooks={currentBooks} onBookMove={onBookMove} />
+                <Bookshelf name="Want to Read" id="wantToRead" currentBooks={currentBooks} onBookMove={onBookMove} />
+                <Bookshelf name="Read" id="read" currentBooks={currentBooks} onBookMove={onBookMove} />
 
             </div>
         )

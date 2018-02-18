@@ -16,6 +16,7 @@ class Bookshelf extends Component {
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{name}</h2>
+        <h6 className="bookshelf-size"> {showingBooks.length} book(s) </h6>
         <div className="bookshelf-books">
           <ol className="books-grid">
             {showingBooks.map((book) => (

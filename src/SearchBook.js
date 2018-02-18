@@ -79,7 +79,9 @@ class SearchBook extends Component {
                         <input type="text" placeholder="Search by title or author" value={query} onChange={(event) => this.updateQuery(event.target.value)} />
                     </div>
                 </div>
+
                 <div className="search-books-results">
+                    <div> {showingBooks.length < 1 || (<h6 className="bookshelf-size"> {showingBooks.length} book(s) </h6>)}</div>
                     <ol className="books-grid">
                         {showingBooks.map((book) => (
                             <li key={book.id}>

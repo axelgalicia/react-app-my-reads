@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
+import DebounceInput from 'react-debounce-input'
 
 
 /**
@@ -99,7 +100,7 @@ class SearchBook extends Component {
                 <div className="search-books-bar">
                     <Link className="close-search" to="/" onClick={onFinishSearch}>Close</Link>
                     <div className="search-books-input-wrapper">
-                        <input type="text" placeholder="Search by title or author" value={query} onChange={(event) => this.updateQuery(event.target.value)} />
+                        <DebounceInput type="text" debounceTimeout={300} placeholder="Search by title or author" value={query} onChange={(event) => this.updateQuery(event.target.value)} />
                     </div>
                 </div>
 
@@ -110,7 +111,7 @@ class SearchBook extends Component {
                             <li key={book.id}>
                                 <Book
                                     id={book.id}
-                                    backgroundImageURL={(book.imageLinks && book.imageLinks.smallThumbnail) ? (book.imageLinks.smallThumbnail) : ''}
+                                    backgroundImageURL={(book.imageLinks && book.imageLinks.smallThumbnail) ? (book.imageLinks.smallThumbnail) : 'http://via.placeholder.com/128x193?text=No%20Cover'}
                                     title={book.title}
                                     shelf={book.shelf ? book.shelf : 'none'}
                                     authors={book.authors ? book.authors : ['[No Author]']} onBookMove={this.updateBook} />

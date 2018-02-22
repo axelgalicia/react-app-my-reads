@@ -35,7 +35,7 @@ class Bookshelf extends Component {
               <li key={book.id}>
                 <Book
                   id={book.id}
-                  backgroundImageURL={(book.imageLinks && book.imageLinks.smallThumbnail) ? (book.imageLinks.smallThumbnail) : ''}
+                  backgroundImageURL={(book.imageLinks && book.imageLinks.smallThumbnail) ? (book.imageLinks.smallThumbnail) : 'http://via.placeholder.com/128x193?text=No%20Cover'}
                   title={book.title}
                   shelf={book.shelf}
                   authors={book.authors ? book.authors : ['[No Author]']} onBookMove={onBookMove} />

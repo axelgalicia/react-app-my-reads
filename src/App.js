@@ -1,8 +1,9 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import SearchBook from './SearchBook'
 import ListBookshelfs from './ListBookshelfs'
+import ErrorPage404 from './ErrorPage404'
 import './App.css'
 
 /**
@@ -45,18 +46,21 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route exact path="/search" render={() => (
-          <SearchBook onFinishSearch={this.getAllMyBooks} />
-        )} />
+        <Switch>
+          <Route exact path="/search" render={() => (
+            <SearchBook onFinishSearch={this.getAllMyBooks} />
+          )} />
 
-        <Route exact path="/" render={() => (
-          <div className="list-books">
-            <Title />
-            <ListBookshelfs currentBooks={this.state.books} onBookMove={this.moveBook} />
-            <SearchButton />
-          </div>
-        )} />
+          <Route exact path="/" render={() => (
+            <div className="list-books">
+              <Title />
+              <ListBookshelfs currentBooks={this.state.books} onBookMove={this.moveBook} />
+              <SearchButton />
+            </div>
+          )} />
 
+          <Route component={ErrorPage404} />
+        </Switch>
       </div>
     )
   }
